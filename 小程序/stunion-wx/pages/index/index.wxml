@@ -1,0 +1,63 @@
+<view class="page">
+  <div class="menu">
+    <view class="title">常用功能</view>
+    <view class="menu-item">
+      <view class="weui-grids">
+        <view class="weui-grid" bindtap="rmst">
+          <view class="weui-grid__icon">
+            <image src="../../static/images/menu/rmst.png"></image>
+          </view>
+          <view class="weui-grid__label">热门社团</view>
+        </view>
+        <view class="weui-grid" bindtap="xxyd">
+          <view class="weui-grid__icon">
+            <image src="../../static/images/menu/xxyd.png"></image>
+          </view>
+          <view class="weui-grid__label">学习园地</view>
+        </view>
+        <view class="weui-grid" bindtap="sthd">
+          <view class="weui-grid__icon">
+            <image src="../../static/images/menu/sthd.png"></image>
+          </view>
+          <view class="weui-grid__label">社团活动</view>
+        </view>
+        <view class="weui-grid" bindtap="stfc">
+          <view class="weui-grid__icon">
+            <image src="../../static/images/menu/stfc.png"></image>
+          </view>
+          <view class="weui-grid__label">社团风采</view>
+        </view>
+        <view class="weui-grid" bindtap="hdxf">
+          <view class="weui-grid__icon">
+            <image src="../../static/images/menu/hdxf.png"></image>
+          </view>
+          <view class="weui-grid__label">活动学分</view>
+        </view>
+        <view class="weui-grid" bindtap="pdtd">
+          <view class="weui-grid__icon">
+            <image src="../../static/images/menu/hdph.png"></image>
+          </view>
+          <view class="weui-grid__label">排行天地</view>
+        </view>
+      </view>
+    </view>
+  </div>
+</view>
+<view class="notice">
+  <view class="flexrow">
+    <view class="title">新闻公告</view>
+    <navigator class="more" url="/pages/notice/index">更多</navigator>
+  </view>
+  <view class="news-list">
+    <view wx:if="{{!newsList}}">加载中...</view>
+    <block wx:for="{{newsList}}" wx:key="key">
+      <navigator class="news-list-item" url="/pages/notice/detail?id={{item.id}}">
+        <view class="news-list-item-right">
+          <text class="text-cut headline">{{item.title}}</text>
+          <text class="date">{{item.createdAt}}</text>
+        </view>
+      </navigator>
+      <view class="line"></view>
+    </block>
+  </view>
+</view>

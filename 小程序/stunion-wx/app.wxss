@@ -1,0 +1,145 @@
+@import "weui.wxss";
+@import "font.wxss";
+
+.line5 {
+  height: 5px;
+  background-color: #f8f8f8;
+}
+
+.line10 {
+  height: 10px;
+  background-color: #f8f8f8;
+}
+
+.title {
+  padding: 10rpx 25rpx;
+}
+
+.title text {
+  display: inline-block;
+  width: 4px;
+  border-radius: 2px;
+  height: 30rpx;
+  background-color: #ccc;
+  margin-right: 5px;
+  margin-bottom: -2px;
+  /* border-left: 3px solid #fed351; */
+}
+
+.height100 {
+  height: 100%;
+}
+
+.mg10 {
+  margin: 10px;
+}
+
+.mgt10 {
+  margin-top: 10px;
+}
+
+.mgb10 {
+  margin-bottom: 10px;
+}
+
+.mgl10 {
+  margin-left: 10px;
+}
+
+.mgr10 {
+  margin-right: 10px;
+}
+
+.pd10 {
+  padding: 10px;
+}
+
+.pdt10 {
+  padding-top: 10px;
+}
+
+.pdb10 {
+  padding-bottom: 10px;
+}
+
+.pdl10 {
+  padding-left: 10px;
+}
+
+.pdr10 {
+  padding-right: 10px;
+}
+
+.wth50rpx {
+  width: 50rpx;
+}
+
+.wth100rpx {
+  width: 100rpx;
+}
+
+.wth150rpx {
+  width: 150rpx;
+}
+
+.wth200rpx {
+  width: 200rpx;
+}
+
+.wth250rpx {
+  width: 250rpx;
+}
+
+.wth300rpx {
+  width: 300rpx;
+}
+
+.wth350rpx {
+  width: 350rpx;
+}
+
+.wth400rpx {
+  width: 400rpx;
+}
+
+.wth450rpx {
+  width: 450rpx;
+}
+
+.wth500rpx {
+  width: 500rpx;
+}
+
+.wth550rpx {
+  width: 550rpx;
+}
+
+.wth600rpx {
+  width: 600rpx;
+}
+
+.wth650rpx {
+  width: 650rpx;
+}
+
+.wth700rpx {
+  width: 700rpx;
+}
+
+.wth750rpx {
+  width: 750rpx;
+}
+
+.swiper image {
+  width: 100%;
+}
+
+.flexrow {
+  display: flex;
+  flex-direction: row;
+}
+
+.weui-grids .weui-grid .weui-grid__icon image {
+  height: 60rpx;
+  width: 60rpx;
+}

@@ -1,0 +1,103 @@
+<@override name="script">
+    <script>
+        layui.use(["element", "form", "table", "layer", "laydate", "layedit","upload"], function () {
+            var element = layui.element;
+            var form = layui.form;
+            var table = layui.table;
+            var layer = layui.layer;
+            var laydate = layui.laydate;
+            var layedit = layui.layedit;
+            var upload = layui.upload;
+            
+			
+			//表单提交
+            form.on('submit(save)', function (data) {
+	        	jQuery.ajax({
+	            	url: "${rc.contextPath}/admin/activityCollect/update",
+	                type: "post",
+	                dataType: "json",
+	                data: data.field,
+	                success: function (data, textStatus, jqXHR) {
+	                	if (data.code != "1") {
+	                    	layer.msg(data.msg, {icon: 2, time: 2000});
+	                        return;
+	                    }
+                      	layer.msg("保存成功!", {icon: 1, time: 1000}, function () {
+                        	//window.history.go(-1);
+                        	location.href="${rc.contextPath}/admin/activityCollect/table.html";
+                      	});
+	                  },
+	                error: function () {
+	                      layer.msg("请求服务器异常", {icon: 2, time: 2000});
+	                }
+	            });
+	            return false;
+	        });
+        });
+    </script>
+</@override> 
+
+<@override name="breadcrumb">
+    <a><cite>编辑活动收藏</cite></a>
+</@override> 
+
+<@override name="content">
+    <div class="layui-body">
+        <div class="layui-content-page">
+            <form id="dialogform" class="layui-form" lay-filter="value">
+                <input type="hidden" value="${model.id?c!''}" id="id" name="id"/>
+                <div class="layui-row">
+                    <div class="layui-col-lg12">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">学生</label>
+                            <div class="layui-input-block">
+                            	<select id="studentId" name="studentId" class="layui-input">
+                            		<option value="">请选择</option>
+                            		<#if studentIds??>
+                            		<#list studentIds as item>
+                            		<option <#if (model.studentId??&&model.studentId==item.id)>selected="selected"</#if> value="${item.id!''}">${item.name!''}</option>
+                            		</#list>
+                            		</#if>
+                            	</select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg12">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">活动</label>
+                            <div class="layui-input-block">
+                            	<select id="activityId" name="activityId" class="layui-input">
+                            		<option value="">请选择</option>
+                            		<#if activityIds??>
+                            		<#list activityIds as item>
+                            		<option <#if (model.activityId??&&model.activityId==item.id)>selected="selected"</#if> value="${item.id!''}">${item.name!''}</option>
+                            		</#list>
+                            		</#if>
+                            	</select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg12">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">评论</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="content" name="content" value="${model.content!''}" autocomplete="off" class="layui-input"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg12">
+	                    <div class="layui-form-item">
+	                        <div class="layui-input-block">
+	                            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="save">提交保存 </button>
+	                            <button class="layui-btn layui-btn-primary" type="button" onclick="window.history.go(-1);">返回 </button>
+	                        </div>
+	                    </div>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</@override> 
+
+<@extends name="/admin/layout.html"/>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.model.Stunion" table="stunion">
+		<comment>社团信息表</comment>
+		<id name="id" type="java.lang.Integer">
+			<column name="id" length="11">
+				<comment>主键</comment>
+			</column>
+			<generator class="native"></generator>
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="name" length="64">
+				<comment>名称</comment>
+			</column>
+		</property>
+		<property name="logo" type="java.lang.String">
+			<column name="logo" length="64">
+				<comment>logo</comment>
+			</column>
+		</property>
+		<property name="userId" type="int">
+			<column name="userId" length="11" default="0">
+				<comment>部长</comment>
+			</column>
+		</property>
+		<property name="tel" type="java.lang.String">
+			<column name="tel" length="16">
+				<comment>电话</comment>
+			</column>
+		</property>
+		<property name="slogan" type="java.lang.String">
+			<column name="slogan" length="128">
+				<comment>口号</comment>
+			</column>
+		</property>
+		<property name="content" type="java.lang.String">
+			<column name="content" sql-type="longtext" length="0">
+				<comment>简介</comment>
+			</column>
+		</property>
+		<property name="createdAt" type="java.lang.String">
+			<column name="createdAt" length="20">
+				<comment>创建时间</comment>
+			</column>
+		</property>
+		<property name="updatedAt" type="java.lang.String">
+			<column name="updatedAt" length="20">
+				<comment>更新时间</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

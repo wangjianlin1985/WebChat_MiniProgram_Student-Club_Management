@@ -1,0 +1,5 @@
+<view class="title">{{ study.title }}</view>
+<view class="date">{{ study.createdAt }}</view>
+<view class="body">
+  <rich-text nodes="{{study.content}}"></rich-text>
+</view>

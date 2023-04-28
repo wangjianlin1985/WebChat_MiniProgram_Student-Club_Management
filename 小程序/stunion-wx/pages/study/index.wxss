@@ -1,0 +1,37 @@
+.notices {
+  padding: 20rpx 25rpx;
+}
+
+.notices .notice {
+  border-bottom: 1px dotted #ddd;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20rpx;
+  padding-bottom: 10rpx;
+}
+
+.notices .notice .title-time {
+  width: 450rpx;
+}
+
+.notices .notice .title-time .title {
+  color: #111;
+  font-size: 16px;
+  padding-left: 10rpx;
+}
+
+.notices .notice .title-time .time text {
+  color: #999;
+  font-size: 12px;
+  margin-right: 10rpx;
+}
+
+.notices .notice .pic {
+  width: 225rpx;
+  padding-left: 25rpx;
+}
+
+.notices .notice .pic image {
+  width: 225rpx;
+  height: 150rpx;
+}

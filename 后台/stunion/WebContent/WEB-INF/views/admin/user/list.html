@@ -1,0 +1,304 @@
+<@override name="script">
+    <script>
+        layui.use(["element", "form", "table", "layer", "laydate", "layedit","upload"], function () {
+            var element = layui.element;
+            var form = layui.form;
+            var table = layui.table;
+            var layer = layui.layer;
+            var laydate = layui.laydate;
+            var layedit = layui.layedit;
+            var upload = layui.upload;
+            
+            //切换查询条件
+            form.on('select(change-query)',function (data){
+            	$("#query-name").attr("name",data.value);
+            });
+
+            //搜索
+            form.on('submit(search)', function (data) {
+                table.reload("layuiTable", {url: "${rc.contextPath}/admin/user/getTable", method: "post", where: data.field});
+                return false;
+            });
+            
+
+            //添加按钮
+            form.on('submit(add)', function () {
+                layer.open({
+                    type: 1,
+                    title: "新增用户",
+                    content: $("#layui-dialog"),
+                    success: function (index, layero) {
+                        $("#dialogform")[0].reset();
+                        layui.form.render();
+                    },
+                    btnAlign: 'c',
+                    area: ["720px", "400px"],
+                    btn: ["提交保存", "关闭"],
+                    yes: function (index, layero) {
+                        form.on('submit(dialogform)', function (data) {
+                            jQuery.ajax({
+                                url: "${rc.contextPath}/admin/user/save",
+                                type: "post",
+                                dataType: "json",
+                                data: data.field,
+                                success: function (data, textStatus, jqXHR) {
+                                    if (data.code != "1") {
+                                        layer.msg(data.msg, {icon: 2, time: 2000});
+                                        return;
+                                    }
+                                    layer.msg("保存成功!", {icon: 1, time: 1000}, function () {
+                                        layer.close(index);
+                                        table.reload("layuiTable");
+                                    });
+                                },
+                                error: function () {
+                                    layer.msg("请求服务器异常", {icon: 2, time: 2000});
+                                }
+                            });
+                            return false;
+                        });
+                        $('.submit').trigger('click');
+                    }
+                });
+                return false;
+            });
+
+            table.on('tool(opt)', function (obj) {
+                //编辑数据
+                if (obj.event === 'edit') {
+                    layer.open({
+                        type: 1,
+                        area: ["720px", "400px"],
+                        title: "编辑用户",
+                        content: $("#layui-dialog"),
+                        success: function (index, layero) {
+                            form.val("value", obj.data);
+                        },
+                        btnAlign: 'c',
+                        btn: ["提交保存", "关闭"],
+                        yes: function (index, layero) {
+                            form.on('submit(dialogform)', function (data) {
+                                jQuery.ajax({
+                                    url: "${rc.contextPath}/admin/user/update",
+                                    type: "post",
+                                    dataType: "json",
+                                    data: data.field,
+                                    success: function (data, textStatus, jqXHR) {
+                                        if (data.code != "1") {
+                                            layer.msg(data.msg, {icon: 2, time: 2000});
+                                            return;
+                                        }
+                                        layer.msg("保存成功!", {icon: 1, time: 1000}, function () {
+                                            layer.close(index);
+                                            table.reload("layuiTable");
+                                        });
+                                    },
+                                    error: function () {
+                                        layer.msg("请求服务器异常", {icon: 2, time: 2000});
+                                    }
+                                });
+                                return false;
+                            });
+                            $('.submit').trigger('click');
+                        }
+                    });
+
+                }
+                //删除数据
+                if (obj.event === 'del') {
+                    layer.confirm("是否确认删除?", {icon: 3, title: "确认"}, function (index) {
+                        jQuery.ajax({
+                            url: "${rc.contextPath}/admin/user/delete",
+                            type: "get",
+                            dataType: "json",
+                            data: {id: obj.data.id},
+                            success: function (data, textStatus, jqXHR) {
+                                if (data.code != "1") {
+                                    layer.msg(data.msg, {icon: 2, time: 2000});
+                                    return;
+                                }
+                                layer.msg("删除成功!", {icon: 1, time: 1000}, function () {
+                                    layer.close(index);
+                                    table.reload("layuiTable");
+                                });
+                            },
+                            error: function () {
+                                layer.msg("请求服务器异常", {icon: 2, time: 2000});
+                            }
+                        });
+                    });
+                }
+
+            });
+            
+            
+        });
+    </script>
+</@override> 
+
+<@override name="breadcrumb">
+    <a><cite>用户管理</cite></a>
+</@override> 
+
+<@override name="content">
+    <div class="layui-body">
+        <div class="layui-content-page">
+            <div class="layui-row">
+                <div class="layui-col-lg8">
+                    <div class="layui-btn-container">
+                        <button type="button" lay-submit lay-filter="add" class="layui-btn layui-btn-normal">
+                        	<i class="layui-icon layui-icon-add-1 layui-font-10"></i>添加
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="layui-col-lg4">
+                    <form class="layui-form" action="">
+                    	<div class="layui-row layui-search">
+                    		<div class="layui-col-lg1">&nbsp;</div>
+                        	<div class="layui-col-lg3">
+                                <select class="layui-select" lay-filter="change-query">
+                                	<option value="name">姓名</option>
+                                	<option value="code">账号</option>
+                                	<option value="role">角色</option>
+                                	<option value="phone">手机号</option>
+                                </select>
+                            </div>
+                            <div class="layui-col-lg6">
+                                <input type="text" name="name" id="query-name" class="layui-input" autocomplete="off"/>
+                            </div>
+                            <div class="layui-col-lg2">
+                                <button lay-submit lay-filter="search" type="button" class="layui-btn layui-btn-normal layui-btn-fluid">搜索</button>
+                            </div>
+                    	</div>
+                    </form>
+                </div>
+            </div>
+            <div class="gridTable">
+                <div class="layui-tables">
+                    <table id="layuiTable" class="layui-table"
+                           lay-data="{url:'${rc.contextPath}/admin/user/getTable',method:'post',page:true}" lay-filter="opt">
+                        <thead>
+                        <tr>
+                            <th lay-data="{type:'numbers'}"></th>
+                            <th lay-data="{field:'name'}">姓名</th>
+                            <th lay-data="{field:'code'}">账号</th>
+                            <th lay-data="{field:'roleTxt'}">角色</th>
+                            <th lay-data="{field:'idcard'}">身份证</th>
+                            <th lay-data="{field:'phone'}">手机号</th>
+                            <th lay-data="{field:'email'}">邮箱</th>
+                            <th lay-data="{field:'address'}">地址</th>
+                            <th lay-data="{field:'notes'}">备注</th>
+                            <th lay-data="{field:'updatedAt'}">更新时间</th>
+                            <th lay-data="{field:'opt',width:116,toolbar:'#optbar'}">操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+	<script type="text/html" id="optbar">
+		{{#  if(d.id!=0){ }}
+		<a href="javascript:;" class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>
+		<a href="javascript:;" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+		{{#  } }}
+	</script>
+</@override> 
+
+<@override name="dialog">
+    <div id="layui-dialog" class="layui-dialog">
+        <div class="layui-dialog-body">
+            <form id="dialogform" class="layui-form" lay-filter="value">
+                <input type="hidden" value="0" id="id" name="id"/>
+                <div class="layui-row">
+                    <div class="layui-col-lg6">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="name" name="name" autocomplete="off" class="layui-input" lay-verify="required" lay-reqText="姓名不能为空"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">账号</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="code" name="code" autocomplete="off" class="layui-input" lay-verify="required" lay-reqText="账号不能为空"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">角色</label>
+                            <div class="layui-input-block">
+                            	<select id="role" name="role" class="layui-input" lay-verify="required" lay-reqText="请选择角色">
+                            		<option value="">请选择</option>
+                            		<#if roles??>
+                            		<#list roles as item>
+                            		<option value="${item.val!''}">${item.txt!''}</option>
+                            		</#list>
+                            		</#if>
+                            	</select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">密码</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="password" name="password" autocomplete="off" class="layui-input" lay-verify="required" lay-reqText="密码不能为空"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">身份证</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="idcard" name="idcard" autocomplete="off" class="layui-input"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">手机号</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="phone" name="phone" autocomplete="off" class="layui-input"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">邮箱</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="email" name="email" autocomplete="off" class="layui-input"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="address" name="address" autocomplete="off" class="layui-input"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">备注</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="notes" name="notes" autocomplete="off" class="layui-input"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="submit" style="display: none;" lay-submit
+                        lay-filter="dialogform">提交保存
+                </button>
+            </form>
+        </div>
+    </div>
+</@override> 
+
+<@extends name="/admin/layout.html"/>

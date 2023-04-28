@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.model.Student" table="students">
+		<comment>学生信息表</comment>
+		<id name="id" type="java.lang.Integer">
+			<column name="id" length="11">
+				<comment>主键</comment>
+			</column>
+			<generator class="native"></generator>
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="name" length="20">
+				<comment>姓名</comment>
+			</column>
+		</property>
+		<property name="sno" type="java.lang.String">
+			<column name="sno" length="16">
+				<comment>学号</comment>
+			</column>
+		</property>
+		<property name="clazzId" type="int">
+			<column name="clazzId" length="11" default="0">
+				<comment>班级</comment>
+			</column>
+		</property>
+		<property name="password" type="java.lang.String">
+			<column name="password" length="20">
+				<comment>密码</comment>
+			</column>
+		</property>
+		<property name="phone" type="java.lang.String">
+			<column name="phone" length="11">
+				<comment>手机号</comment>
+			</column>
+		</property>
+		<property name="idcard" type="java.lang.String">
+			<column name="idcard" length="8">
+				<comment>身份证</comment>
+			</column>
+		</property>
+		<property name="email" type="java.lang.String">
+			<column name="email" length="32">
+				<comment>邮箱</comment>
+			</column>
+		</property>
+		<property name="credit" type="int">
+			<column name="credit" length="11" default="0">
+				<comment>学分</comment>
+			</column>
+		</property>
+		<property name="createdAt" type="java.lang.String">
+			<column name="createdAt" length="20">
+				<comment>注册时间</comment>
+			</column>
+		</property>
+		<property name="updatedAt" type="java.lang.String">
+			<column name="updatedAt" length="20">
+				<comment>更新时间</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

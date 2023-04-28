@@ -1,0 +1,14 @@
+<view class="notices">
+  <navigator url="detail?id={{item.id}}" class="notice" wx:for="{{lists}}" wx:key="index">
+    <view class="title-time">
+      <view class="title">{{item.title}}</view>
+      <view class="time">
+        <text>{{item.cate}}</text>
+        <text>{{item.createdAt}}</text>
+      </view>
+    </view>
+    <view class="pic">
+      <image src="{{config.url + item.pic}}"></image>
+    </view>
+  </navigator>
+</view>

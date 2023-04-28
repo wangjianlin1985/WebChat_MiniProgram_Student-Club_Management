@@ -1,0 +1,7 @@
+.weui-cells {
+  margin-top: 0px;
+}
+.weui-form__opr-area{
+  margin-top:30px ;
+}
+.weui-toptips{display:block}

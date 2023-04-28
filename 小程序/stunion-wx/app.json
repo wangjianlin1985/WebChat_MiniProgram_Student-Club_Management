@@ -1,0 +1,60 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/stunion/index",
+    "pages/stunion/detail",
+    "pages/stunion/student",
+    "pages/activity/index",
+    "pages/activity/detail",
+    "pages/study/index",
+    "pages/study/detail",
+    "pages/scenery/index",
+    "pages/scenery/detail",
+    "pages/person/index",
+    "pages/person/stunion",
+    "pages/person/credit",
+    "pages/person/activity",
+    "pages/person/comment",
+    "pages/person/collect",
+    "pages/student/index",
+    "pages/setting/index",
+    "pages/login/index",
+    "pages/reg/index",
+    "pages/notice/index",
+    "pages/notice/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f0f2f5",
+    "navigationBarTitleText": "社团小程序",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "backgroundColor": "#fefefe",
+    "color": "#999",
+    "selectedColor": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/static/images/icon/home.png",
+        "selectedIconPath": "/static/images/icon/home_cur.png"
+      },
+      {
+        "pagePath": "pages/stunion/index",
+        "text": "社团",
+        "iconPath": "/static/images/icon/service.png",
+        "selectedIconPath": "/static/images/icon/service_cur.png"
+      },
+      {
+        "pagePath": "pages/person/index",
+        "text": "我的",
+        "iconPath": "/static/images/icon/my.png",
+        "selectedIconPath": "/static/images/icon/my_cur.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

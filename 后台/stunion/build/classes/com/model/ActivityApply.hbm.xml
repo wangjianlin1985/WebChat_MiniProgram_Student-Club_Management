@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.model.ActivityApply" table="activity_apply">
+		<comment>活动申请表</comment>
+		<id name="id" type="java.lang.Integer">
+			<column name="id" length="11">
+				<comment>主键</comment>
+			</column>
+			<generator class="native"></generator>
+		</id>
+		<property name="studentId" type="int">
+			<column name="studentId" length="11" default="0">
+				<comment>学生</comment>
+			</column>
+		</property>
+		<property name="activityId" type="int">
+			<column name="activityId" length="11" default="0">
+				<comment>活动</comment>
+			</column>
+		</property>
+		<property name="reason" type="java.lang.String">
+			<column name="reason" length="128">
+				<comment>申请理由</comment>
+			</column>
+		</property>
+		<property name="status" type="java.lang.String">
+			<column name="status" length="8">
+				<comment>状态</comment>
+			</column>
+		</property>
+		<property name="iscredit" type="java.lang.String">
+			<column name="iscredit" length="8">
+				<comment>是否打分</comment>
+			</column>
+		</property>
+		<property name="credit" type="int">
+			<column name="credit" length="11" default="0">
+				<comment>学分</comment>
+			</column>
+		</property>
+		<property name="createdAt" type="java.lang.String">
+			<column name="createdAt" length="20">
+				<comment>申请时间</comment>
+			</column>
+		</property>
+		<property name="updatedAt" type="java.lang.String">
+			<column name="updatedAt" length="20">
+				<comment>审核时间</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

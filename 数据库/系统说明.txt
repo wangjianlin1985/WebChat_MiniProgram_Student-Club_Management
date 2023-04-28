@@ -1,0 +1,2 @@
+系统数据库名为stunion,用户名root，密码root，
+如要修改可在eclipse中打开resources/properties/db.properties文件自行修改

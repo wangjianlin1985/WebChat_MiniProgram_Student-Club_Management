@@ -1,0 +1,15 @@
+<view wx:if='{{lists.length != 0}}'>
+  <view wx:for="{{lists}}" wx:key="index">
+    <view data-item="{{item}}" bindtap="stunion" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view aria-role="link" aria-labelledby="js_cell_tl1_bd js_cell_tl1_ft" id="js_cell_tl1_bd" class="weui-cell__bd">{{item.stunionIdTxt}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access" id="js_cell_tl1_ft" aria-hidden="true">{{item.statusTxt}}</view>
+    </view>
+    <view class="line5"></view>
+  </view>
+</view>
+
+<view wx:else="">
+  <view class="weui-loadmore weui-loadmore_line">
+    <text class="weui-loadmore__tips">无申请记录</text>
+  </view>
+</view>

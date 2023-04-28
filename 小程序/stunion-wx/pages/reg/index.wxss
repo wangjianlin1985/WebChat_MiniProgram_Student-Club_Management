@@ -1,0 +1,11 @@
+.weui-cells {
+  margin-top: 0px;
+}
+.weui-form__opr-area{
+  margin-top:30px ;
+}
+.weui-toptips{display:block}
+.avatar{
+  width: 100rpx;
+  height: 100rpx;
+}

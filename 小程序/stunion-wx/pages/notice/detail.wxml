@@ -1,0 +1,16 @@
+<view class="page__bd">
+  <view class="weui-article">
+    <view class="weui-article__h1">{{notice.title}}</view>
+    <view class="weui-article__section">
+      <view class="weui-article__section">
+        <view class="weui-article__h3">{{notice.updated_at}}</view>
+        <view class="weui-article__p" wx:if="{{notice.pic}}">
+          <image class="weui-article__img" src="{{config.url+notice.pic}}" mode="widthFix" />
+        </view>
+        <view class="weui-article__p">
+          <rich-text nodes="{{notice.content}}"></rich-text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

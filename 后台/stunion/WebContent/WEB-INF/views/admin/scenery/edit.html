@@ -1,0 +1,128 @@
+<@override name="script">
+    <script>
+        layui.use(["element", "form", "table", "layer", "laydate", "layedit","upload"], function () {
+            var element = layui.element;
+            var form = layui.form;
+            var table = layui.table;
+            var layer = layui.layer;
+            var laydate = layui.laydate;
+            var layedit = layui.layedit;
+            var upload = layui.upload;
+            
+            var upload_pic = upload.render({
+            	elem: '#layui-upload-pic',
+                url: '${rc.contextPath}/upload/image',
+                field:"imageFile",
+                done: function(res){
+                	$("#pic").val(res.data);
+                }
+            });
+            layedit.set({
+	    		uploadImage: {
+	    			url: '${rc.contextPath}/upload/layui/image',
+	    		}
+	    	});
+	    	var contentIdx = layedit.build('content',{
+	    		tool: ['strong','italic','underline','del' ,'|','left','center','right','link','unlink','image','face']
+	    	});
+	    	form.verify({
+	    	    content: function(value) { 
+	   	        	return layedit.sync(contentIdx);
+	   	        }
+	    	});
+			
+			//表单提交
+            form.on('submit(save)', function (data) {
+	        	jQuery.ajax({
+	            	url: "${rc.contextPath}/admin/scenery/update",
+	                type: "post",
+	                dataType: "json",
+	                data: data.field,
+	                success: function (data, textStatus, jqXHR) {
+	                	if (data.code != "1") {
+	                    	layer.msg(data.msg, {icon: 2, time: 2000});
+	                        return;
+	                    }
+                      	layer.msg("保存成功!", {icon: 1, time: 1000}, function () {
+                        	//window.history.go(-1);
+                        	location.href="${rc.contextPath}/admin/scenery/table.html";
+                      	});
+	                  },
+	                error: function () {
+	                      layer.msg("请求服务器异常", {icon: 2, time: 2000});
+	                }
+	            });
+	            return false;
+	        });
+        });
+    </script>
+</@override> 
+
+<@override name="breadcrumb">
+    <a><cite>编辑社团风采</cite></a>
+</@override> 
+
+<@override name="content">
+    <div class="layui-body">
+        <div class="layui-content-page">
+            <form id="dialogform" class="layui-form" lay-filter="value">
+                <input type="hidden" value="${model.id?c!''}" id="id" name="id"/>
+                <div class="layui-row">
+                    <div class="layui-col-lg12">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">社团</label>
+                            <div class="layui-input-block">
+                            	<select id="stunionId" name="stunionId" class="layui-input">
+                            		<option value="">请选择</option>
+                            		<#if stunionIds??>
+                            		<#list stunionIds as item>
+                            		<option <#if (model.stunionId??&&model.stunionId==item.id)>selected="selected"</#if> value="${item.id!''}">${item.name!''}</option>
+                            		</#list>
+                            		</#if>
+                            	</select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg12">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="name" name="name" value="${model.name!''}" autocomplete="off" class="layui-input" lay-verify="required" lay-reqText=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg12">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">封面</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="pic" name="pic" value="${model.pic!''}" autocomplete="off" class="layui-input" lay-verify="required" lay-reqText="请上传封面"/>
+                            </div>
+                            <div class="layui-upload-btn">
+                            	<button id="layui-upload-pic" type="button"><i class="layui-icon layui-icon-upload"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg12">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">内容</label>
+                            <div class="layui-input-block">
+                            	<textarea id="content" name="content" class="textarea" lay-verify="content">${model.content!''}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-lg12">
+	                    <div class="layui-form-item">
+	                        <div class="layui-input-block">
+	                            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="save">提交保存 </button>
+	                            <button class="layui-btn layui-btn-primary" type="button" onclick="window.history.go(-1);">返回 </button>
+	                        </div>
+	                    </div>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</@override> 
+
+<@extends name="/admin/layout.html"/>

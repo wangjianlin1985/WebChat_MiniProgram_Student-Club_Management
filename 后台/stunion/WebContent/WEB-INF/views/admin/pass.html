@@ -1,0 +1,88 @@
+<@override name="script">
+    <script>
+        layui.use(["element", "form", "table", "layer"], function () {
+            var element = layui.element;
+            var form = layui.form;
+            var table = layui.table;
+            var layer = layui.layer;
+            var laydate = layui.laydate;
+
+            form.on('submit(pwd)',function(data){
+            	$.ajax({
+        			url : "${rc.contextPath}/vpwd",
+        			type : "post",
+        			dataType : "json",
+        			data : data.field,
+        			success : function(data, textStatus, jqXHR) {
+        				if (data.code == 1) {
+        					layer.msg("修改成功，下次登录生效!", {
+        						icon : 1,
+        						time : 1000
+        					}, function() {
+        						location.href = "${rc.contextPath}/index.html";
+        					});
+        				} else {
+        					layer.msg(data.msg);
+        				}
+        			},
+        			error : function(XMLHttpRequest, textStatus, errorThrown) {
+        				layer.msg("请求服务器异常!");
+        			}
+        		});
+            	return false;
+            })
+            
+        });
+    </script>
+</@override> 
+
+<@override name="breadcrumb">
+    <a><cite>修改密码</cite></a>
+</@override> 
+
+<@override name="content">
+    <div class="layui-body">
+        <div class="layui-content-page">
+            <div style="height: 20px;"></div>
+            <form class="layui-form" method="post">
+                
+                <div class="layui-form-item">
+                    <label class="layui-form-label">原密码</label>
+                    <div class="layui-input-inline">
+                        <input id="oldpass" name="oldpass" class="layui-input"
+                               type="text" placeholder="原密码"
+                               autocomplete="off" lay-verify="required" lay-reqText="原密码不能为空"/>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请填写原密码</div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">新密码</label>
+                    <div class="layui-input-inline">
+                        <input id="newpass" name="newpass" class="layui-input"
+                               type="text" placeholder="新密码"
+                               autocomplete="off" lay-verify="required" lay-reqText="新密码不能为空"/>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请填写新密码</div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">确认密码</label>
+                    <div class="layui-input-inline">
+                        <input id="newpass_confirmation" name="newpass_confirmation" class="layui-input"
+                               type="text" placeholder="确认密码"
+                               autocomplete="off" lay-verify="required" lay-reqText="确认密码不能为空"/>
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">同上新密码</div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">&nbsp;</label>
+                    <div class="layui-input-block">
+                        <button lay-submit lay-filter="pwd" type="submit"
+                                class="layui-btn layui-btn-normal">提交保存
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+</@override> 
+
+<@extends name="/admin/layout.html"/>

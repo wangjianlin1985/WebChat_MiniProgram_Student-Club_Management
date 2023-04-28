@@ -1,0 +1,76 @@
+<view class="page">
+  <view class="userinfo" wx:if="{{ student }}">
+    <view class="avatar">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <view class="info">
+      <view>{{ student.name }}</view>
+      <view>{{ student.clazzIdTxt }}</view>
+    </view>
+  </view>
+  <view class="userinfo" wx:else>
+    <view class="avatar">
+      <image src="../../static/images/avatar.png"></image>
+    </view>
+    <view class="info">
+      <view>未登录</view>
+      <view bindtap="login" class="msdl">马上登录</view>
+    </view>
+  </view>
+</view>
+<view class="navlist" style="margin-top:-60rpx">
+  <view class="weui-panel__bd">
+    <view class="weui-media-box weui-media-box_small-appmsg">
+      <view class="weui-cells">
+        <navigator class="weui-cell weui-cell_active weui-cell_access" url="/pages/person/stunion">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>我的社团申请</view>
+          </view>
+          <view class="weui-cell__ft"></view>
+        </navigator>
+        <navigator class="weui-cell weui-cell_active weui-cell_access" url="/pages/person/activity">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>我的活动申请</view>
+          </view>
+          <view class="weui-cell__ft"></view>
+        </navigator>
+        <navigator class="weui-cell weui-cell_active weui-cell_access" url="/pages/person/credit">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>我的活动学分</view>
+          </view>
+          <view class="weui-cell__ft">
+          </view>
+        </navigator>
+        <navigator class="weui-cell weui-cell_active weui-cell_access" url="/pages/person/collect">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>我的活动收藏</view>
+          </view>
+          <view class="weui-cell__ft">
+          </view>
+        </navigator>
+        <navigator class="weui-cell weui-cell_active weui-cell_access" url="/pages/person/comment">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>我的活动评论</view>
+          </view>
+          <view class="weui-cell__ft">
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="navlist">
+  <view class="weui-panel__bd">
+    <view class="weui-media-box weui-media-box_small-appmsg">
+      <view class="weui-cells">
+        <navigator class="weui-cell weui-cell_active weui-cell_access" url="/pages/setting/index">
+          <view class="weui-cell__bd weui-cell_primary">
+            <view>修改个人资料</view>
+          </view>
+          <view class="weui-cell__ft"></view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>

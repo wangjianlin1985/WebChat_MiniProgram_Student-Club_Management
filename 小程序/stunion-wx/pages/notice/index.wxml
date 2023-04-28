@@ -1,0 +1,12 @@
+<view class="news-list">
+  <view wx:if="{{!noticeList}}">加载中...</view>
+  <block wx:for="{{noticeList}}" wx:key="key">
+    <navigator class="news-list-item" url="/pages/notice/detail?id={{item.id}}">
+      <view class="news-list-item-right">
+        <text class="text-cut headline">{{item.title}}</text>
+        <text class="date">{{item.createdAt}}</text>
+      </view>
+    </navigator>
+    <view class="line"></view>
+  </block>
+</view>

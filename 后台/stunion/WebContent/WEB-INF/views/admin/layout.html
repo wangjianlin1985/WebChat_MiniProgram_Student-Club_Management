@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>社团小程序后台管理</title>
+<link rel="stylesheet" href="${rc.contextPath}/static/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="${rc.contextPath}/static/css/layout.css" media="all">
+<script src="${rc.contextPath}/static/jquery/jquery.min.js"></script>
+<script src="${rc.contextPath}/static/layui/layui.js"></script>
+<script>
+    $(function() {
+        $('.logout-btn').on("click", function() {
+            layer.confirm('是否确认退出登录', {
+                icon: 3
+            }, function() {
+                window.location = '${rc.contextPath}/admin/logout.html';
+            })
+        });
+    });
+</script>
+<@block name="script"></@block>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-header header" style="">
+            <div class="layui-logo layuimini-back-home layui-bg-black">
+                <a href="javascript:;">
+                    <h1>社团小程序后台管理</h1>
+                </a>
+            </div>
+            <div class="layui-header-content">
+                <ul class="layui-nav layui-layout-left" style="line-height: 60px;padding-left: 10px !important;">
+                    <i class="layui-icon layui-icon-home"
+                        style="color: rgba(0, 0, 0, 0.9) !important;margin-right: 10px;"></i>
+                    <span class="layui-breadcrumb">
+                        <a href="${rc.contextPath}/admin/index.html">首页</a>
+                        <@block name="breadcrumb"></@block>
+                    </span>
+                </ul>
+
+                <ul class="layui-nav layui-layout-right layui-user">
+                    <li class="layui-nav-item">
+                        <a href=""><i class="layui-icon layui-icon-refresh-3"></i></a>
+                    </li>
+                    <li class="layui-nav-item layui-setting">
+                        <#if User??>
+                        	<a href="javascript:;">${User.name!''}</a>
+                        <#else>
+                        	<a href="javascript:;">未登录</a>
+                        </#if>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="pass.html" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
+                            </dd>
+                            <dd>
+                                <hr>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" class="logout-btn">退出登录</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layuimini-select-bgcolor" lay-unselect>
+                        <a href="javascript:;" class="logout-btn">
+                            <i class="layui-icon layui-icon-log"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+	
+		<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+				<ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">社团管理</a>
+                        <dl class="layui-nav-child">
+                        	<#if (User?? && User.role=='admin')>
+                            <dd><a href="${rc.contextPath}/admin/stunion/table.html">社团信息管理</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/activity/table.html">社团活动管理</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/activityApply/table.html">社团活动学分</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/student/table.html">学生信息管理</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/study/table.html">学习园地管理</a></dd>
+                            <#else>
+                            <dd><a href="${rc.contextPath}/admin/activity/table.html">社团活动管理</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/stunionApply/table.html">社团申请管理</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/activityApply/table.html">社团活动申请</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/activityComment/table.html">社团活动评论</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/activityCollect/table.html">社团活动收藏</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/scenery/table.html">社团活动风采</a></dd>
+                            </#if>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">系统管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="${rc.contextPath}/admin/article/table.html">新闻公告</a></dd>
+                            <#if (User?? && User.role=='admin')>
+                            <dd><a href="${rc.contextPath}/admin/clazz/list.html">班级管理</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/user/list.html">用户管理</a></dd>
+                            <dd><a href="${rc.contextPath}/admin/dict/list.html">数据字典</a></dd>
+                        	</#if>
+                            <dd><a href="${rc.contextPath}/admin/pass.html">修改密码</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+			</div>
+		</div>
+
+		<div class="layui-body-">
+			<!-- 内容主体区域 -->
+			<@block name="content"></@block>
+		</div>
+
+
+	</div>
+	<@block name="dialog"></@block>
+</body>
+</html>

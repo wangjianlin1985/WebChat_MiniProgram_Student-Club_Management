@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.model.StunionApply" table="stunion_apply">
+		<comment>社团申请表</comment>
+		<id name="id" type="java.lang.Integer">
+			<column name="id" length="11">
+				<comment>主键</comment>
+			</column>
+			<generator class="native"></generator>
+		</id>
+		<property name="studentId" type="int">
+			<column name="studentId" length="11" default="0">
+				<comment>学生</comment>
+			</column>
+		</property>
+		<property name="stunionId" type="int">
+			<column name="stunionId" length="11" default="0">
+				<comment>社团</comment>
+			</column>
+		</property>
+		<property name="reason" type="java.lang.String">
+			<column name="reason" length="128">
+				<comment>申请理由</comment>
+			</column>
+		</property>
+		<property name="status" type="java.lang.String">
+			<column name="status" length="8">
+				<comment>状态</comment>
+			</column>
+		</property>
+		<property name="createdAt" type="java.lang.String">
+			<column name="createdAt" length="20">
+				<comment>申请时间</comment>
+			</column>
+		</property>
+		<property name="updatedAt" type="java.lang.String">
+			<column name="updatedAt" length="20">
+				<comment>审核时间</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

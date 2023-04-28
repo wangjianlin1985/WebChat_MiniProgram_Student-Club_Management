@@ -1,0 +1,12 @@
+<view class="user-list">
+  <view data-item="{{item}}" class="item shadow" wx:for="{{lists}}" wx:key="index">
+    <view class="detail">
+      <view class="name text-cut">
+        <text class="yname">{{item.name}}</text>
+        <text class="text-darkgreen color-skin1">{{item.clazzIdTxt}}<text class="line"> / </text>{{item.credit}}学分
+        </text>
+      </view>
+    </view>
+  </view>
+
+</view>

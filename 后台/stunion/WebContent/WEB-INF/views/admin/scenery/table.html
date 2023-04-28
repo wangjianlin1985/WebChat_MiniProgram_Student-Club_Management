@@ -1,0 +1,119 @@
+<@override name="script">
+    <script>
+        layui.use(["element", "form", "table", "layer", "laydate", "layedit"], function () {
+            var element = layui.element;
+            var form = layui.form;
+            var table = layui.table;
+            var layer = layui.layer;
+            var laydate = layui.laydate;
+            var layedit = layui.layedit;
+            
+            //切换查询条件
+            form.on('select(change-query)',function (data){
+            	$("#query-name").attr("name",data.value);
+            });
+
+            //搜索
+            form.on('submit(search)', function (data) {
+                table.reload("layuiTable", {url: "${rc.contextPath}/admin/scenery/getTable", method: "post", where: data.field});
+                return false;
+            });
+
+            table.on('tool(opt)', function (obj) {
+                //删除数据
+                if (obj.event === 'del') {
+                    layer.confirm("是否确认删除?", {icon: 3, title: "确认"}, function (index) {
+                        jQuery.ajax({
+                            url: "${rc.contextPath}/admin/scenery/delete",
+                            type: "get",
+                            dataType: "json",
+                            data: {id: obj.data.id},
+                            success: function (data, textStatus, jqXHR) {
+                                if (data.code != "1") {
+                                    layer.msg(data.msg, {icon: 2, time: 2000});
+                                    return;
+                                }
+                                layer.msg("删除成功!", {icon: 1, time: 1000}, function () {
+                                    layer.close(index);
+                                    table.reload("layuiTable");
+                                });
+                            },
+                            error: function () {
+                                layer.msg("请求服务器异常", {icon: 2, time: 2000});
+                            }
+                        });
+                    });
+                }
+
+            });
+            
+            
+        });
+    </script>
+</@override> 
+
+<@override name="breadcrumb">
+    <a><cite>社团风采管理</cite></a>
+</@override> 
+
+<@override name="content">
+    <div class="layui-body">
+        <div class="layui-content-page">
+            <div class="layui-row">
+                <div class="layui-col-lg8">
+                    <div class="layui-btn-container">
+                        <a href="${rc.contextPath}/admin/scenery/add.html" class="layui-btn layui-btn-normal">
+                        	<i class="layui-icon layui-icon-add-1 layui-font-10"></i>添加
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="layui-col-lg4">
+                    <form class="layui-form" action="">
+                    	<div class="layui-row layui-search">
+                    		<div class="layui-col-lg1">&nbsp;</div>
+                        	<div class="layui-col-lg3">
+                                <select class="layui-select" lay-filter="change-query">
+                                	<option value="name">名称</option>
+                                </select>
+                            </div>
+                            <div class="layui-col-lg6">
+                                <input type="text" name="name" id="query-name" class="layui-input" autocomplete="off"/>
+                            </div>
+                            <div class="layui-col-lg2">
+                                <button lay-submit lay-filter="search" type="button"
+                                        class="layui-btn layui-btn-normal layui-btn-fluid">搜索</button>
+                            </div>
+                    	</div>
+                    </form>
+                </div>
+            </div>
+            <div class="gridTable">
+                <div class="layui-tables">
+                    <table id="layuiTable" class="layui-table"
+                           lay-data="{url:'${rc.contextPath}/admin/scenery/getTable',method:'post',page:true}" lay-filter="opt">
+                        <thead>
+                        <tr>
+                            <th lay-data="{type:'numbers'}"></th>
+                            <th lay-data="{field:'stunionIdTxt'}">社团</th>
+                            <th lay-data="{field:'name'}">名称</th>
+                            <th lay-data="{field:'createdAt'}">创建时间</th>
+                            <th lay-data="{field:'updatedAt'}">更新时间</th>
+                            <th lay-data="{field:'opt',width:116,toolbar:'#optbar'}">操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+	<script type="text/html" id="optbar">
+		{{#  if(d.id!=0){ }}
+		<a href="${rc.contextPath}/admin/scenery/edit/{{d.id}}.html" class="layui-btn layui-btn-xs layui-btn-normal">编辑</a>
+		<a href="javascript:;" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+		{{#  } }}
+	</script>
+</@override> 
+
+<@extends name="/admin/layout.html"/>

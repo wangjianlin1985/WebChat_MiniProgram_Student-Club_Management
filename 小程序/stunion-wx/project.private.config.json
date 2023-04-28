@@ -1,0 +1,24 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/stunion/student",
+          "pathName": "pages/stunion/student",
+          "query": "id=1",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

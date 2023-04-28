@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.model.Dict" table="dict">
+		<comment>数据字典表</comment>
+		<id name="id" type="java.lang.Integer">
+			<column name="id" length="11">
+				<comment>主键</comment>
+			</column>
+			<generator class="native"></generator>
+		</id>
+		<property name="createdAt" type="java.lang.String">
+			<column name="createdAt" sql-type="text" length="0">
+				<comment>创建时间</comment>
+			</column>
+		</property>
+		<property name="updatedAt" type="java.lang.String">
+			<column name="updatedAt" sql-type="longtext" length="0">
+				<comment>更新时间</comment>
+			</column>
+		</property>
+		<property name="code" type="java.lang.String">
+			<column name="code" length="20">
+				<comment>编码</comment>
+			</column>
+		</property>
+		<property name="val" type="java.lang.String">
+			<column name="val" length="20">
+				<comment>值</comment>
+			</column>
+		</property>
+		<property name="txt" type="java.lang.String">
+			<column name="txt" length="20">
+				<comment>显示</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

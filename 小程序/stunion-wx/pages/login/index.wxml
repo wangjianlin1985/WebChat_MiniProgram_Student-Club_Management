@@ -1,0 +1,23 @@
+<form bindsubmit="formsubmit">
+  <view class="weui-cells weui-cells_form">
+    <view class="weui-cell weui-cell_active">
+      <view class="weui-cell__hd"><label class="weui-label">学号</label></view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="填写学号" name="sno" placeholder-class="weui-input__placeholder" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_active">
+      <view class="weui-cell__hd">
+        <label class="weui-label">密码</label>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="填写密码" name="password" placeholder-class="weui-input__placeholder" />
+      </view>
+    </view>
+  </view>
+  <view class="weui-form__opr-area">
+    <view bindtap="reg" style="padding-bottom:30px;text-align: center;">注册账号</view>
+    <button form-type="submit" class="weui-btn weui-btn_primary">登录</button>
+  </view>
+</form>
+<view aria-role="alert" wx:if="{{topTips}}" class="weui-toptips weui-toptips_warn fadeIn">{{error}}</view>
